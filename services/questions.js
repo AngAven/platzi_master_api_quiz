@@ -1,28 +1,34 @@
-const {questionsMock} = require('../utils/mocks/questions')
+const MongoLib = require('../lib/mongo')
 
 class QuestionsService{
-  async getQuestions(){
-    const questions = await Promise.resolve(questionsMock)
+  constructor(){
+    this.collection = 'preguntas'
+    this.mongoDB = new MongoLib()
+  }
+
+  async getAllQuestions({tags}){
+    const query = tags && {tags: {$in: tags}}
+    const questions = await this.mongoDB.getAll(this.collection, query)
     return questions || []
   }
 
-  async getQuestion(){
-    const question = await Promise.resolve(questionsMock[0])
+  async getQuestion({questionId}){
+    const question = await this.mongoDB.get(this.collection, questionId)
     return question || []
   }
 
-  async createQuestion(){
-    const createdQuestionId = await Promise.resolve(questionsMock[0].numero)
+  async createQuestion({question}){
+    const createdQuestionId = await this.mongoDB.create(this.collection, question)
     return createdQuestionId
   }
 
-  async updateQuestion(){
-    const updatedQuestionId = await Promise.resolve(questionsMock[0].numero)
+  async updateQuestion({questionId, question}){
+    const updatedQuestionId = await this.mongoDB.update(this.collection, questionId, question)
     return updatedQuestionId
   }
 
-  async deleteQuestionId(){
-    const deletedQuestionId = await Promise.resolve(questionsMock[0].numero)
+  async deleteQuestionId({questionId}){
+    const deletedQuestionId = await this.mongoDB.delete(this.collection, questionId)
     return deletedQuestionId
   }
 }

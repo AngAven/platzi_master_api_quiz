@@ -8,8 +8,9 @@ function questionAPI(app){
   const questionService = new QuestionsService()
 
   router.get('/', async(req, res, next) => {
+    const {tags} = req.query
     try {
-      const questions = await questionService.getQuestions()
+      const questions = await questionService.getAllQuestions({tags})
 
       res.status(200).json({
         data: questions,
@@ -55,7 +56,7 @@ function questionAPI(app){
     const {questionId} = req.params
     const {body: question} = req
     try {
-      const updatedQuestionId = await questionService.createQuestion({questionId, question})
+      const updatedQuestionId = await questionService.updateQuestion({questionId, question})
 
       res.status(200).json({
         data: updatedQuestionId,

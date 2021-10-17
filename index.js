@@ -4,6 +4,7 @@ const app = express()
 const {config} = require('./config/index')
 const questionsAPI = require('./routes/questions')
 
+app.use(express.json())
 questionsAPI(app)
 
 app.listen(config.port, () => {
