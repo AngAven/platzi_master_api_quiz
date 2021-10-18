@@ -13,7 +13,7 @@ function questionAPI(app){
       const questions = await questionService.getAllQuestions({tags})
 
       res.status(200).json({
-        data: questions,
+        questions,
         message: 'questions listed'
       })
 
