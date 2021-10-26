@@ -19,10 +19,10 @@ class QuestionsService{
     return questions || []
   }
 
-  // async getQuestion({questionId}){
-  //   const question = await this.mongoDB.get(this.collection, questionId)
-  //   return question || []
-  // }
+  async getQuestion({questionId}){
+    const question = await this.mongoDB.get(this.collection, questionId)
+    return question || []
+  }
 
   async createQuestion({question}){
     const createdQuestionId = await this.mongoDB.create(this.collection, question)
