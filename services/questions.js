@@ -12,10 +12,17 @@ class QuestionsService{
     return questions || []
   }
 
-  async getQuestion({questionId}){
-    const question = await this.mongoDB.get(this.collection, questionId)
-    return question || []
+  async getRandomQuestions(questionsSelected){
+    console.log(questionsSelected)
+    const query = {numero: {$in: questionsSelected}}
+    const questions = await this.mongoDB.getRandom(this.collection, query)
+    return questions || []
   }
+
+  // async getQuestion({questionId}){
+  //   const question = await this.mongoDB.get(this.collection, questionId)
+  //   return question || []
+  // }
 
   async createQuestion({question}){
     const createdQuestionId = await this.mongoDB.create(this.collection, question)

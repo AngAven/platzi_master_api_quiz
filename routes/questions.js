@@ -22,10 +22,32 @@ function questionAPI(app){
     }
   })
 
-  router.get('/:questionId', async(req, res, next) => {
-    const {questionId} = req.params
+  // router.get('/:questionId', async(req, res, next) => {
+  //   const {questionId} = req.params
+  //   try {
+  //     const question = await questionService.getQuestion({questionId})
+  //
+  //     res.status(200).json({
+  //       data: question,
+  //       message: 'Question listed'
+  //     })
+  //
+  //   } catch (e) {
+  //     next(e)
+  //   }
+  // })
+
+  router.get('/random/:number_questions', async(req, res, next) => {
+    const {number_questions} = req.params
+    let questionSelected = new Array(0)
+
+    for (let i = 0; i < number_questions; i++){
+      const questions = Math.floor((Math.random() * 1000) + 1)
+      questionSelected.push(questions)
+    }
+
     try {
-      const question = await questionService.getQuestion({questionId})
+      const question = await questionService.getRandomQuestions(questionSelected)
 
       res.status(200).json({
         data: question,
