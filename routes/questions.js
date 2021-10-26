@@ -48,10 +48,10 @@ function questionAPI(app){
     }
 
     try {
-      const question = await questionService.getRandomQuestions(questionSelected)
+      const questions = await questionService.getRandomQuestions(questionSelected)
 
       res.status(200).json({
-        data: question,
+        questions,
         message: 'Question listed'
       })
 
